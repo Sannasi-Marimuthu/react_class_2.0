@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./readBook.scss";
 
 const defaultData = {
@@ -8,17 +8,30 @@ const defaultData = {
 };
 
 const ReadingBook = ({ BookData }) => {
-
   const data = BookData || defaultData;
 
   // ✅ initialize price properly
-  const [dynamicPrice,setDynamicPrice] = useState(Number(data.prize));
+  const [dynamicPrice, setDynamicPrice] = useState(Number(data.prize));
+
+  // useEffect(() => {
+  //   if (dynamicPrice > 300) {
+  //     alert("Price exceeded 300");
+  //   }
+  // }, [dynamicPrice]);
+
+  useEffect(() => {
+    console.log("Hi Mounted");
+
+    return () => {
+      console.log("Component Unmounted");
+    };
+  }, []);
 
   const handleAddMore = () => {
     console.log("Before:", dynamicPrice);
 
     // ✅ correct state update
-   setDynamicPrice(dynamicPrice => dynamicPrice + 50)
+    setDynamicPrice((dynamicPrice) => dynamicPrice + 50);
 
     console.log("After:", dynamicPrice);
   };
@@ -47,3 +60,9 @@ const ReadingBook = ({ BookData }) => {
 };
 
 export default ReadingBook;
+
+//  life cycle methods
+
+// mount - open
+// unmount - close
+//update - update the value
